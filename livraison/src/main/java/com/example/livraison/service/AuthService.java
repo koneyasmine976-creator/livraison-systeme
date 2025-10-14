@@ -4,6 +4,7 @@ import com.example.livraison.dto.ConnexionRequest;
 import com.example.livraison.dto.UserInfo;
 import com.example.livraison.entity.Client;
 import com.example.livraison.entity.Commercant;
+import com.example.livraison.entity.Livreur;
 import com.example.livraison.exception.AccountBlockedException;
 import com.example.livraison.exception.InvalidCredentialsException;
 import com.example.livraison.exception.InvalidRoleException;
@@ -20,6 +21,7 @@ public class AuthService {
     
     private final ClientService clientService;
     private final CommercantService commerçantService;
+    private final LivreurService livreurService;
     private final PasswordEncoder passwordEncoder;
     
     public UserInfo connecter(ConnexionRequest request) {
@@ -31,8 +33,10 @@ public class AuthService {
             return connecterClient(email, motDePasse);
         } else if ("COMMERCANT".equals(role)) {
             return connecterCommercant(email, motDePasse);
+        } else if ("LIVREUR".equals(role)) {
+            return connecterLivreur(email, motDePasse);
         } else {
-            throw new InvalidRoleException("Rôle invalide '" + role + "'. Utilisez 'CLIENT' ou 'COMMERCANT'");
+            throw new InvalidRoleException("Rôle invalide '" + role + "'. Utilisez 'CLIENT', 'COMMERCANT' ou 'LIVREUR'");
         }
     }
     
@@ -71,5 +75,34 @@ public class AuthService {
         }
         
         return commerçantService.convertirEnUserInfo(commerçant);
+    }
+    
+    private UserInfo connecterLivreur(String email, String motDePasse) {
+        Optional<Livreur> livreurOpt = livreurService.trouverParEmail(email);
+        if (livreurOpt.isEmpty()) {
+            throw new UserNotFoundException("Aucun livreur trouvé avec l'email '" + email + "'");
+        }
+        
+        Livreur livreur = livreurOpt.get();
+        if (!passwordEncoder.matches(motDePasse, livreur.getMotDePasse())) {
+            throw new InvalidCredentialsException("Mot de passe incorrect pour l'email '" + email + "'");
+        }
+        
+        if (!livreur.getActif()) {
+            throw new AccountBlockedException("Le compte livreur avec l'email '" + email + "' est désactivé");
+        }
+        
+        return convertirLivreurEnUserInfo(livreur);
+    }
+    
+    private UserInfo convertirLivreurEnUserInfo(Livreur livreur) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(livreur.getIdLivreur());
+        userInfo.setNom(livreur.getNom());
+        userInfo.setPrenom(livreur.getPrenom());
+        userInfo.setEmail(livreur.getEmail());
+        userInfo.setTelephone(livreur.getTelephone());
+        userInfo.setRole("ROLE_LIVREUR");
+        return userInfo;
     }
 }

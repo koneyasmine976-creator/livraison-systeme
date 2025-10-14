@@ -26,6 +26,7 @@ public class AuthController {
         // Créer une session
         HttpSession session = httpRequest.getSession(true);
         session.setAttribute("user", userInfo);
+        session.setAttribute("userId", userInfo.getId());
         session.setAttribute("role", userInfo.getRole());
         
         String message = "Connexion réussie pour " + userInfo.getPrenom() + " " + userInfo.getNom() + 
