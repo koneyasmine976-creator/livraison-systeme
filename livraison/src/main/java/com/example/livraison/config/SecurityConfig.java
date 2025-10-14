@@ -29,8 +29,9 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/client/inscription").permitAll()
-                .requestMatchers("/api/commercant/inscription").permitAll()
+                .requestMatchers("/api/clients/inscription").permitAll()
+                .requestMatchers("/api/commercants/inscription").permitAll()
+                .requestMatchers("/api/livreurs/inscription").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
             )
