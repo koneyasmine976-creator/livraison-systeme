@@ -2,13 +2,20 @@
 
 ## Vue d'ensemble
 
-Ce document décrit les nouvelles API ajoutées au système de livraison pour permettre :
+Ce document décrit les API du système de livraison pour permettre :
+- L'inscription et la gestion des commerçants
 - L'inscription et la gestion des livreurs
 - La création et gestion des demandes de livraison
 - L'assignation des livreurs aux demandes
 - Le suivi des livraisons
 
 ## Entités Principales
+
+### Commerçant
+- **ID** : Identifiant unique du commerçant
+- **Informations personnelles** : nom, prénom, email, téléphone
+- **Informations boutique** : nom, adresse, logo
+- **Authentification** : email/mot de passe avec rôle ROLE_COMMERCANT
 
 ### Livreur
 - **ID** : Identifiant unique du livreur
@@ -24,6 +31,24 @@ Ce document décrit les nouvelles API ajoutées au système de livraison pour pe
 - **Priorités** : BASSE, NORMALE, HAUTE, URGENTE
 
 ## API Endpoints
+
+### 🏪 Gestion des Commerçants
+
+#### POST `/api/commercants/inscription`
+Inscription d'un nouveau commerçant
+```json
+{
+  "idCommercant": "COM001",
+  "nom": "Martin",
+  "prenom": "Pierre",
+  "telephone": "+33123456789",
+  "email": "pierre.martin@commerce.com",
+  "motDePasse": "motdepasse123",
+  "nomBoutique": "Boutique Martin",
+  "adresseBoutique": "123 Rue du Commerce, 75001 Paris",
+  "logoBoutique": "logo_url_optionnel"
+}
+```
 
 ### 🚚 Gestion des Livreurs
 
@@ -119,7 +144,15 @@ Refus d'une demande par le livreur
 ### 🔐 Authentification
 
 #### POST `/api/auth/connexion`
-Connexion avec support du rôle LIVREUR
+Connexion avec support des rôles COMMERCANT et LIVREUR
+```json
+{
+  "email": "pierre.martin@commerce.com",
+  "motDePasse": "motdepasse123",
+  "role": "COMMERCANT"
+}
+```
+
 ```json
 {
   "email": "jean.dupont@livreur.com",
@@ -130,7 +163,16 @@ Connexion avec support du rôle LIVREUR
 
 ## Workflow Typique
 
-### 1. Inscription et Connexion Livreur
+### 1. Inscription et Connexion Commerçant
+```bash
+# Inscription
+POST /api/commercants/inscription
+
+# Connexion
+POST /api/auth/connexion
+```
+
+### 2. Inscription et Connexion Livreur
 ```bash
 # Inscription
 POST /api/livreurs/inscription
@@ -139,7 +181,7 @@ POST /api/livreurs/inscription
 POST /api/auth/connexion
 ```
 
-### 2. Création et Assignation de Demande (Commerçant)
+### 3. Création et Assignation de Demande (Commerçant)
 ```bash
 # Connexion commerçant
 POST /api/auth/connexion
@@ -154,7 +196,7 @@ GET /api/livreurs/disponibles
 POST /api/demandes-livraison/assigner
 ```
 
-### 3. Gestion de Livraison (Livreur)
+### 4. Gestion de Livraison (Livreur)
 ```bash
 # Voir mes demandes
 GET /api/demandes-livraison/mes-demandes
@@ -209,6 +251,21 @@ Utilisez le script `test-livraison-api.ps1` pour tester toutes les fonctionnalit
 - `DemandeDelivraison` → `Commande` (Many-to-One, optionnel)
 
 ## Exemples d'Usage
+
+### Inscription d'un commerçant
+```json
+{
+  "idCommercant": "COM002",
+  "nom": "Dubois",
+  "prenom": "Sophie",
+  "telephone": "+33145678901",
+  "email": "sophie.dubois@boutique.fr",
+  "motDePasse": "monMotDePasse456",
+  "nomBoutique": "Boutique Sophie",
+  "adresseBoutique": "789 Boulevard Saint-Germain, 75006 Paris",
+  "logoBoutique": "https://example.com/logo.png"
+}
+```
 
 ### Créer une demande de livraison express
 ```json
