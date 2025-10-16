@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/commercants/inscription").permitAll()
                 .requestMatchers("/api/livreurs/inscription").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/api-docs/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session

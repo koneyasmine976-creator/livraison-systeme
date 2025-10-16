@@ -3,6 +3,12 @@ package com.example.livraison.controller;
 import com.example.livraison.dto.*;
 import com.example.livraison.entity.DemandeDelivraison;
 import com.example.livraison.service.DemandeDelivraisonService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -15,11 +21,32 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/demandes-livraison")
 @RequiredArgsConstructor
+@Tag(name = "Demandes de Livraison", description = "Endpoints pour la gestion des demandes de livraison")
 public class DemandeDelivraisonController {
     
     private final DemandeDelivraisonService demandeService;
     
     @PostMapping("/creer")
+    @Operation(
+        summary = "Créer une demande de livraison",
+        description = "Permet à un commerçant de créer une nouvelle demande de livraison. Nécessite d'être connecté en tant que COMMERCANT.",
+        security = @SecurityRequirement(name = "session")
+    )
+    @ApiResponses(value = {
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(
+            responseCode = "200",
+            description = "Demande créée avec succès",
+            content = @Content(schema = @Schema(implementation = DemandeDelivraison.class))
+        ),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(
+            responseCode = "401",
+            description = "Session non valide"
+        ),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(
+            responseCode = "403",
+            description = "Accès réservé aux commerçants"
+        )
+    })
     public ResponseEntity<ApiResponse<DemandeDelivraison>> creerDemande(
             @Valid @RequestBody CreerDemandeDelivraisonRequest request,
             HttpServletRequest httpRequest) {
@@ -51,6 +78,25 @@ public class DemandeDelivraisonController {
     }
     
     @PostMapping("/assigner")
+    @Operation(
+        summary = "Assigner un livreur à une demande",
+        description = "Permet au commerçant d'assigner un livreur à une demande de livraison. Le livreur passe automatiquement en statut OCCUPE.",
+        security = @SecurityRequirement(name = "session")
+    )
+    @ApiResponses(value = {
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(
+            responseCode = "200",
+            description = "Livreur assigné avec succès"
+        ),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(
+            responseCode = "403",
+            description = "Accès réservé aux commerçants"
+        ),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(
+            responseCode = "404",
+            description = "Demande ou livreur non trouvé"
+        )
+    })
     public ResponseEntity<ApiResponse<DemandeDelivraison>> assignerLivreur(
             @Valid @RequestBody AssignerLivreurRequest request,
             HttpServletRequest httpRequest) {
@@ -112,6 +158,21 @@ public class DemandeDelivraisonController {
     }
     
     @GetMapping("/mes-demandes")
+    @Operation(
+        summary = "Mes demandes de livraison",
+        description = "Récupère les demandes selon le rôle : toutes les demandes pour un commerçant, ou demandes assignées pour un livreur.",
+        security = @SecurityRequirement(name = "session")
+    )
+    @ApiResponses(value = {
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(
+            responseCode = "200",
+            description = "Liste des demandes récupérée"
+        ),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(
+            responseCode = "401",
+            description = "Session non valide"
+        )
+    })
     public ResponseEntity<ApiResponse<List<DemandeDelivraisonResponse>>> obtenirMesDemandes(
             HttpServletRequest request) {
         
