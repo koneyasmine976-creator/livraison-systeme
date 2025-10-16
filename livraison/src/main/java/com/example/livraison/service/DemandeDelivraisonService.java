@@ -108,8 +108,23 @@ public class DemandeDelivraisonService {
         
         // Mettre à jour les dates selon le statut
         switch (statut) {
+            case EN_ATTENTE:
+                // Aucune action spécifique
+                break;
+            case ASSIGNEE:
+                // Aucune action spécifique (géré dans assignerLivreur)
+                break;
+            case ACCEPTEE:
+                // Aucune action spécifique
+                break;
+            case EN_COLLECTE:
+                // Aucune action spécifique
+                break;
             case COLLECTEE:
                 demande.setDateCollecte(LocalDateTime.now());
+                break;
+            case EN_LIVRAISON:
+                // Aucune action spécifique
                 break;
             case LIVREE:
                 demande.setDateLivraisonReelle(LocalDateTime.now());

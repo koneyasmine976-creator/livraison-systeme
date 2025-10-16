@@ -4,11 +4,6 @@ import com.example.livraison.dto.ApiResponse;
 import com.example.livraison.dto.InscriptionLivreurRequest;
 import com.example.livraison.entity.Livreur;
 import com.example.livraison.service.LivreurService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -21,27 +16,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/livreurs")
 @RequiredArgsConstructor
-@Tag(name = "Livreurs", description = "Endpoints pour la gestion des livreurs et de leurs statuts")
 public class LivreurController {
     
     private final LivreurService livreurService;
     
     @PostMapping("/inscription")
-    @Operation(
-        summary = "Inscription d'un livreur",
-        description = "Crée un nouveau compte livreur avec les informations du véhicule. L'email et le téléphone doivent être uniques."
-    )
-    @ApiResponses(value = {
-        @io.swagger.v3.oas.annotations.responses.ApiResponse(
-            responseCode = "200",
-            description = "Inscription réussie",
-            content = @Content(schema = @Schema(implementation = Livreur.class))
-        ),
-        @io.swagger.v3.oas.annotations.responses.ApiResponse(
-            responseCode = "400",
-            description = "Email ou téléphone déjà utilisé"
-        )
-    })
     public ResponseEntity<ApiResponse<Livreur>> inscrireLivreur(@Valid @RequestBody InscriptionLivreurRequest request) {
         try {
             Livreur livreur = livreurService.inscrireLivreur(request);
@@ -100,16 +79,6 @@ public class LivreurController {
     }
     
     @GetMapping("/disponibles")
-    @Operation(
-        summary = "Liste des livreurs disponibles",
-        description = "Récupère tous les livreurs ayant le statut DISPONIBLE et actifs."
-    )
-    @ApiResponses(value = {
-        @io.swagger.v3.oas.annotations.responses.ApiResponse(
-            responseCode = "200",
-            description = "Liste des livreurs disponibles"
-        )
-    })
     public ResponseEntity<ApiResponse<List<Livreur>>> obtenirLivreursDisponibles() {
         List<Livreur> livreurs = livreurService.obtenirLivreursDisponibles();
         return ResponseEntity.ok(ApiResponse.success(

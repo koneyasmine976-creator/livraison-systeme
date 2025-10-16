@@ -1,250 +1,188 @@
-# 🎯 Documentation Swagger - Récapitulatif
+# 🚀 Système de Livraison - Documentation API Swagger
 
-## ✅ Documentation Swagger Professionnelle Ajoutée
+## 📌 Accès Rapide
 
-Votre API de système de livraison dispose maintenant d'une documentation Swagger complète et professionnelle.
+| Service | URL | Description |
+|---------|-----|-------------|
+| 🌐 **Application** | http://localhost:8000 | Application principale |
+| 📚 **Swagger UI** | http://localhost:8000/swagger-ui.html | Interface interactive API |
+| 📄 **API Docs** | http://localhost:8000/api-docs | Documentation JSON |
+| 🗄️ **H2 Console** | http://localhost:8000/h2-console | Console base de données |
 
-## 📦 Dépendances Ajoutées
+## 🎯 Démarrage Rapide
 
-### SpringDoc OpenAPI
-```xml
-<dependency>
-    <groupId>org.springdoc</groupId>
-    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-    <version>2.2.0</version>
-</dependency>
+### Windows PowerShell
+```powershell
+.\start-application.ps1
 ```
 
-## 🔧 Fichiers Créés/Modifiés
-
-### Nouveaux Fichiers
-1. **SwaggerConfig.java** - Configuration principale de Swagger
-   - Informations de l'API (titre, version, description)
-   - Serveurs (dev, local, production)
-   - Schéma de sécurité (sessions)
-   - Contacts et licence
-
-2. **SWAGGER_GUIDE.md** - Guide complet d'utilisation
-3. **README_SWAGGER.md** - Ce fichier récapitulatif
-
-### Fichiers Modifiés
-1. **pom.xml** - Ajout de la dépendance SpringDoc OpenAPI
-2. **application.properties** - Configuration Swagger
-3. **SecurityConfig.java** - Autorisation d'accès à Swagger UI
-4. **Contrôleurs annotés** :
-   - ✅ AuthController
-   - ✅ CommercantController
-   - ✅ LivreurController
-   - ✅ DemandeDelivraisonController
-
-## 🌐 URLs d'Accès
-
-Une fois l'application démarrée :
-
-### Interface Swagger UI (Recommandé)
-```
-http://localhost:8080/swagger-ui.html
+### Windows CMD
+```batch
+start-application.bat
 ```
 
-### Documentation OpenAPI JSON
-```
-http://localhost:8080/api-docs
-```
-
-### Documentation OpenAPI YAML
-```
-http://localhost:8080/api-docs.yaml
-```
-
-## 📚 Fonctionnalités de la Documentation
-
-### 1. Organisation par Tags
-- 🔐 **Authentification** - Connexion, déconnexion, sessions
-- 🏪 **Commerçants** - Gestion des commerçants
-- 👥 **Clients** - Gestion des clients
-- 🚚 **Livreurs** - Gestion des livreurs
-- 📦 **Demandes de Livraison** - Workflow complet de livraison
-- 🛒 **Commandes** - Gestion des commandes
-- 📦 **Produits** - Catalogue produits
-- 💬 **Support** - Messagerie support
-
-### 2. Annotations Complètes
-Chaque endpoint dispose de :
-- ✅ Résumé clair et concis
-- ✅ Description détaillée
-- ✅ Codes de réponse HTTP documentés
-- ✅ Schémas de requête/réponse
-- ✅ Exemples de données
-- ✅ Indications de sécurité
-
-### 3. Capacités de Test
-- ✅ Bouton "Try it out" sur chaque endpoint
-- ✅ Gestion automatique des sessions
-- ✅ Validation des données en temps réel
-- ✅ Affichage des réponses formatées
-- ✅ Copie facile des exemples
-
-## 🎨 Caractéristiques Professionnelles
-
-### Interface Utilisateur
-- Navigation intuitive par tags
-- Tri des opérations par méthode HTTP
-- Filtrage par recherche
-- Mode sombre automatique
-- Design responsive
-
-### Sécurité Documentée
-- Indication des endpoints publics vs protégés
-- Documentation du système de sessions
-- Exemples d'authentification
-- Gestion des rôles (CLIENT, COMMERCANT, LIVREUR)
-
-### Standards OpenAPI 3.0
-- Spécification complète exportable
-- Compatible avec tous les outils OpenAPI
-- Génération de clients API possible
-- Import dans Postman/Insomnia
-
-## 🚀 Démarrage Rapide
-
-### 1. Démarrer l'application
+### Maven Direct
 ```bash
-# Avec Maven
 mvn spring-boot:run
-
-# Ou avec votre IDE
-# Run LivraisonApplication.java
 ```
 
-### 2. Accéder à Swagger
-Ouvrez votre navigateur à : `http://localhost:8080/swagger-ui.html`
+## 📦 Configuration Professionnelle
 
-### 3. Premier Test
-1. Allez dans "Commerçants"
-2. Cliquez sur `POST /api/commercants/inscription`
-3. Cliquez sur "Try it out"
-4. Utilisez cet exemple :
+### ✅ Fonctionnalités Swagger Activées
+
+- **Interface Moderne** : UI Swagger 3.0 avec thème professionnel
+- **Documentation Complète** : Tous les endpoints documentés
+- **Try it Out** : Test direct des API depuis l'interface
+- **Groupes d'API** : Organisation par domaine fonctionnel
+- **Authentification** : Support Session & JWT
+- **Exemples** : Requêtes et réponses pré-remplies
+- **Validation** : Schémas de données avec contraintes
+- **Métriques** : Temps de réponse et taille des données
+
+## 🔐 Authentification
+
+### 1. Créer un compte
+
+#### Commerçant
 ```json
+POST http://localhost:8000/api/commercants/inscription
 {
   "idCommercant": "COM001",
   "nom": "Martin",
   "prenom": "Pierre",
   "telephone": "+33123456789",
-  "email": "test@commerce.com",
+  "email": "pierre.martin@commerce.com",
   "motDePasse": "password123",
-  "nomBoutique": "Ma Boutique",
-  "adresseBoutique": "123 Rue Example"
+  "nomBoutique": "Boutique Martin",
+  "adresseBoutique": "123 Rue du Commerce, 75001 Paris"
 }
 ```
-5. Cliquez sur "Execute"
-6. Consultez la réponse !
 
-## 📋 Configuration
-
-### application.properties
-```properties
-# Configuration Swagger/OpenAPI
-springdoc.api-docs.path=/api-docs
-springdoc.swagger-ui.path=/swagger-ui.html
-springdoc.swagger-ui.enabled=true
-springdoc.swagger-ui.operationsSorter=method
-springdoc.swagger-ui.tagsSorter=alpha
-springdoc.swagger-ui.tryItOutEnabled=true
-springdoc.swagger-ui.filter=true
+#### Livreur
+```json
+POST http://localhost:8000/api/livreurs/inscription
+{
+  "idLivreur": "LIV001",
+  "nom": "Dupont",
+  "prenom": "Jean",
+  "telephone": "+33123456789",
+  "email": "jean.dupont@livreur.com",
+  "motDePasse": "password123",
+  "numeroPermis": "123456789",
+  "typeVehicule": "Moto",
+  "plaqueVehicule": "AB-123-CD"
+}
 ```
 
-### SecurityConfig.java
-```java
-.requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/api-docs/**").permitAll()
+### 2. Se connecter
+```json
+POST http://localhost:8000/api/auth/connexion
+{
+  "email": "votre.email@example.com",
+  "motDePasse": "votre_mot_de_passe",
+  "role": "COMMERCANT"  // ou "LIVREUR" ou "CLIENT"
+}
 ```
 
-## 🎯 Cas d'Usage
+## 📊 Groupes d'API
 
-### Pour les Développeurs Frontend
-- Consulter tous les endpoints disponibles
-- Voir les formats de requête/réponse
-- Tester les API avant l'intégration
-- Copier les exemples de JSON
+### 🌐 API Publique
+- `/api/auth/**` - Authentification
+- `/api/*/inscription` - Inscriptions
 
-### Pour les Testeurs
-- Tester tous les endpoints manuellement
-- Valider les scénarios de test
-- Vérifier les codes d'erreur
-- Tester l'authentification
+### 🏪 API Commerçant
+- `/api/commercants/**` - Gestion boutique
+- `/api/demandes-livraison/**` - Demandes de livraison
+- `/api/produits/**` - Catalogue produits
 
-### Pour les Product Owners
-- Vue d'ensemble des fonctionnalités
-- Comprendre les workflows
-- Valider les spécifications
-- Documentation vivante
+### 🚚 API Livreur
+- `/api/livreurs/**` - Profil et statuts
+- `/api/demandes-livraison/**` - Livraisons assignées
 
-### Pour les Intégrateurs
-- Exporter la spécification OpenAPI
-- Générer des clients API
-- Import dans Postman
-- Tests d'intégration automatisés
+### 👤 API Client
+- `/api/clients/**` - Profil client
+- `/api/commandes/**` - Commandes
+- `/api/adresses/**` - Adresses
 
-## 🔄 Workflows Documentés
+## 🎨 Interface Swagger
 
-### Workflow Commerçant
-1. **POST** `/api/commercants/inscription` - S'inscrire
-2. **POST** `/api/auth/connexion` - Se connecter
-3. **POST** `/api/demandes-livraison/creer` - Créer une livraison
-4. **GET** `/api/livreurs/disponibles` - Voir livreurs dispo
-5. **POST** `/api/demandes-livraison/assigner` - Assigner un livreur
+### Navigation
+1. **Accédez à** : http://localhost:8000/swagger-ui.html
+2. **Sélectionnez un groupe** : Public, Commerçant, Livreur, Client
+3. **Explorez les endpoints** : Cliquez pour voir les détails
+4. **Testez** : Utilisez "Try it out" pour tester
 
-### Workflow Livreur
-1. **POST** `/api/livreurs/inscription` - S'inscrire
-2. **POST** `/api/auth/connexion` - Se connecter
-3. **GET** `/api/demandes-livraison/mes-demandes` - Voir ses livraisons
-4. **POST** `/api/demandes-livraison/{id}/accepter` - Accepter
-5. **PUT** `/api/demandes-livraison/statut` - Mettre à jour
+### Fonctionnalités Avancées
+- 🔍 **Recherche** : Barre de recherche globale
+- 🏷️ **Filtrage** : Par tags et méthodes HTTP
+- 📋 **Export** : Téléchargez la documentation
+- 🎯 **Exemples** : Requêtes pré-remplies
 
-## 💡 Avantages de cette Documentation
+## 📈 Monitoring et Métriques
 
-✅ **Pas besoin de documentation externe** - Tout est dans Swagger  
-✅ **Toujours à jour** - Générée automatiquement depuis le code  
-✅ **Interactive** - Testez directement depuis le navigateur  
-✅ **Professionnelle** - Standards OpenAPI 3.0  
-✅ **Complète** - Tous les endpoints documentés  
-✅ **Multilingue** - Descriptions en français  
-✅ **Sécurisée** - Documentation de l'authentification  
-✅ **Exportable** - Format JSON/YAML standard  
+### Endpoints de Santé
+- `/actuator/health` - État de l'application
+- `/actuator/metrics` - Métriques détaillées
+- `/actuator/info` - Informations système
 
-## 📖 Documentation Complémentaire
+## 🛠️ Dépannage
 
-Pour plus de détails, consultez :
-- **SWAGGER_GUIDE.md** - Guide complet d'utilisation
-- **API_LIVRAISON_DOCUMENTATION.md** - Documentation API détaillée
-- **DATABASE_SETUP.md** - Configuration base de données
+### Problème : Swagger ne s'affiche pas
+```bash
+# Vérifiez que l'application est démarrée
+curl http://localhost:8000/api-docs
 
-## 🎓 Ressources
+# Vérifiez les logs
+mvn spring-boot:run | grep -i swagger
+```
 
-### Swagger UI
-- Interface web interactive pour tester les API
-- Génère automatiquement la documentation visuelle
-- Permet de faire des requêtes directement depuis le navigateur
+### Problème : Erreur 403 Forbidden
+- Les endpoints Swagger sont publics
+- Vérifiez SecurityConfig.java
+- Redémarrez l'application
 
-### OpenAPI Specification
-- Standard pour décrire les API REST
-- Format JSON/YAML lisible par les machines et les humains
-- Compatible avec de nombreux outils
+### Problème : Port 8000 occupé
+```bash
+# Windows - Trouver le processus
+netstat -ano | findstr :8000
 
-### SpringDoc
-- Intégration Spring Boot pour Swagger/OpenAPI
-- Génération automatique à partir des annotations
-- Configuration simple et flexible
+# Tuer le processus
+taskkill /PID [PID_NUMBER] /F
+```
 
-## ✨ Résumé
+## 📝 Export de la Documentation
 
-Votre API dispose maintenant d'une **documentation Swagger professionnelle** :
-- 📱 Interface web moderne et intuitive
-- 🔧 Configuration complète et optimisée
-- 📚 Documentation détaillée de tous les endpoints
-- 🧪 Capacité de test en temps réel
-- 🌐 Export au format OpenAPI standard
-- 🔐 Documentation de la sécurité
+### Format JSON
+```bash
+curl http://localhost:8000/api-docs > api-docs.json
+```
 
-**Accédez-y maintenant** : http://localhost:8080/swagger-ui.html
+### Format YAML
+```bash
+curl http://localhost:8000/api-docs.yaml > api-docs.yaml
+```
 
-Bon développement ! 🚀
+### Import Postman
+1. Ouvrez Postman
+2. Import → Link
+3. Collez : `http://localhost:8000/api-docs`
+
+## 🌟 Points Forts
+
+✅ **Port 8000** configuré comme demandé
+✅ **Documentation professionnelle** complète
+✅ **Interface moderne** et intuitive
+✅ **Sécurité** intégrée
+✅ **Multi-environnement** supporté
+✅ **Performance** optimisée
+
+## 📞 Support
+
+Pour toute question sur l'API :
+- 📧 Email : support@livraison-system.com
+- 📚 Documentation : http://localhost:8000/swagger-ui.html
+- 🐛 Issues : GitHub Issues
+
+---
+
+**Version** : 1.0.0 | **Port** : 8000 | **Environnement** : Développement
