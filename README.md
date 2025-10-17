@@ -12,7 +12,7 @@ Ce projet Spring Boot fournit un système complet de gestion des livraisons avec
 - ✅ **Statistiques** : Tableaux de bord et rapports
 - ✅ **Reçus PDF** : Génération automatique de reçus
 - ✅ **Sécurité** : Gestion des rôles et permissions
-
+c'est bon
 ## Prérequis
 - Java 21
 - Maven 3.6+

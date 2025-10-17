@@ -59,7 +59,7 @@ Après le redémarrage :
 1. **Build** → **Rebuild Project**
 2. Attendez que le build se termine
 
----
+------
 
 ## 📊 Vérification
 
